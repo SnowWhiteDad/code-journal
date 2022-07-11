@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Code Journal</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"> 
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700" rel="stylesheet">
   <link rel="icon" href="images/favicon.ico">
   <link
     rel="stylesheet"
@@ -16,9 +19,48 @@
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <header>
+  <header class="header-container">
+    <div class="container">
+      <h2 class="header-text">Code Journal</h2>
+    </div>
   </header>
-  <main>
+  <main class="main-container">
+    <div class="container">
+      <div class="main-header-div">
+        <h1 class="main-header">New Entry</h1>
+      </div>
+      <div data-view="entry-form" class="entry-form-container">
+        <form class="entry-form" action="index.php" method="POST">
+          
+          <div class="row top-form">
+            <div class="entry-form-div column-half">  
+              <img src="images/placeholder-image-square.jpg" alt="Placeholder Image" class="entry-image">
+            </div>
+            
+            <div class="top-inputs column-half">
+              <div class="entry-form-div">
+                <div><label for="entry-title" class="label-text">Title</label></div>
+                <div><input required autofocus type="text" name="entry-title" id="entry-title" placeholder="Title" class="input-width"></div>
+              </div>
+
+              <div class="entry-form-div">
+                <div><label for="photo-url" class="label-text">Photo URL</label></div>
+                <div><input required autofocus type="url" name="photo-url" id="photo-url" placeholder="https://" class="input-width"></textarea></div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="entry-form-div">
+            <div><label for="entry-notes" class="label-text">Notes</label></div>
+            <div><textarea required autofocus name="entry-notes" id="entry-notes" placeholder="Notes" class="notes-area notes-area-height"></textarea></div>
+          </div>
+
+          <div class="entry-form-div">
+            <button type="submit" name="submit-entry" class="submit-entry-button">SAVE</button>
+          </div>
+        </form>
+      </div>
+    </div>
   </main>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
