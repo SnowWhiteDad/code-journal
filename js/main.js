@@ -39,6 +39,9 @@ $entryForm.addEventListener('submit', function (e) {
     notesText: $entryNotes.value
   };
   data.entries.unshift(newData);
+  if (data.nextEntryId === 1) {
+    document.getElementById('entry-list').innerHTML = '';
+  }
   document.getElementById('entry-list').appendChild(renderEntry(newData));
   data.nextEntryId++;
   $entryImage.src = 'images/placeholder-image-square.jpg';
