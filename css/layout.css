@@ -15,7 +15,12 @@
 
 .column-full,
 .column-half {
-  width: 100%;
+  flex-basis: 100%;
+}
+
+.notes-area-height {
+  min-height: 200px;
+  max-height: max-content;
 }
 
 @media screen and (min-width: 768px) {
@@ -29,6 +34,11 @@
   }
 
   .column-half {
-    width: 50%;
+    flex-basis: 50%;
+  }
+
+  .notes-area-height {
+    min-height: 120px;
+    max-height: max-content;
   }
 }
