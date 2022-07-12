@@ -16,8 +16,6 @@
 .column-full,
 .column-half {
   flex-basis: 100%;
-
-  /* width: 100%; */
 }
 
 .notes-area-height {
@@ -37,8 +35,6 @@
 
   .column-half {
     flex-basis: 50%;
-
-    /* width: 50%; */
   }
 
   .notes-area-height {

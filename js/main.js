@@ -20,7 +20,7 @@ $entryForm.addEventListener('submit', function (e) {
     photoUrl: $photoUrl.value,
     notesText: $entryNotes.value
   };
-  data.entries.push(newData);
+  data.entries.unshift(newData);
   data.nextEntryId++;
   $entryImage.src = 'images/placeholder-image-square.jpg';
   $entryForm.reset();
