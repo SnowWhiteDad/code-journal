@@ -12,13 +12,11 @@ $photoUrl.addEventListener('input', function (e) {
 
 $entryForm.addEventListener('submit', function (e) {
   e.preventDefault();
-  var $entryTitle = document.getElementById('entry-title');
-  var $entryNotes = document.getElementById('entry-notes');
   var newData = {
     entryId: data.nextEntryId,
-    title: $entryTitle.value,
-    photoUrl: $photoUrl.value,
-    notesText: $entryNotes.value
+    title: $entryForm.elements.entryTitle.value,
+    photoUrl: $entryForm.elements.photoUrl.value,
+    notesText: $entryForm.elements.entryNotes.value
   };
   data.entries.unshift(newData);
   data.nextEntryId++;
