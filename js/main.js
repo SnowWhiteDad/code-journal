@@ -57,26 +57,6 @@ $newButton.addEventListener('click', function (e) {
   $viewDiv.className = 'hidden';
 });
 
-/*
-  <li>
-    <div class="row entry-container">
-      <div class="column-half">
-        <img src="images/placeholder-image-square.jpg" alt="Placeholder Image" class="entry-image image-view">
-      </div>
-      <div class="column-half">
-        <h3 class="entry-title">Title</h3>
-        <p class="notes-view">Darth Vader is a fictional character in the Star Wars franchise.
-          The character is the central antagonist of the original trilogy and, as Anakin Skywalker,
-          is one of the main protagonists throughout the prequel trilogy. Star Wars creator George
-          Lucas has collectively referred to the first six episodic films of the franchise as &quot;the
-          tragedy of Darth Vader&quot;.[2] He has become one of the most iconic villains in popular
-          culture, and has been listed among the greatest villains and fictional characters ever
-        </p>
-      </div>
-    </div>
-  </li>
-*/
-
 function renderEntry(entry) {
   var $entry = document.createElement('li');
   var $entryContainer = document.createElement('div');
