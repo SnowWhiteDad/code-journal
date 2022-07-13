@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
     for (var i = data.entries.length - 1; i >= 0; i--) {
       var entry = data.entries[i];
       var $entry = renderEntry(entry);
-      $entryList.appendChild($entry);
+      $entryList.prepend($entry);
     }
   } else {
     document.getElementById('entry-list').innerHTML = '<p class="no-entries">No entries have been recorded.</p>';
@@ -40,7 +40,7 @@ $entryForm.addEventListener('submit', function (e) {
   if (data.nextEntryId === 1) {
     document.getElementById('entry-list').innerHTML = '';
   }
-  document.getElementById('entry-list').appendChild(renderEntry(newData));
+  document.getElementById('entry-list').prepend(renderEntry(newData));
   data.nextEntryId++;
   $entryImage.src = 'images/placeholder-image-square.jpg';
   $entryForm.reset();
