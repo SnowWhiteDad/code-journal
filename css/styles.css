@@ -49,8 +49,23 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+<<<<<<< HEAD
+.nav-text {
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 2.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin-left: 25px;
+}
+
+.nav-text:hover {
+  color: rgb(168, 134, 174);
+  cursor: pointer;
+=======
 .col-half {
   flex-basis: 50%;
+>>>>>>> main
 }
 
 .entry-image {
@@ -89,7 +104,7 @@ body {
   width: 100%;
 }
 
-.submit-entry-button {
+.entry-button {
   font-family: Lato, sans-serif;
   font-weight: 600;
   font-size: 1.3rem;
@@ -103,7 +118,49 @@ body {
   background: rgb(88, 6, 135);
 }
 
+.entry-button:hover {
+  background: rgb(146, 43, 180);
+  cursor: pointer;
+}
+
 .label-text {
   font-weight: 900;
   font-size: 1.5rem;
+}
+
+.ul-no-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.view-header {
+  justify-content: center;
+  align-items: center;
+}
+
+.entry-container {
+  min-width: 100%;
+  width: 100%;
+  margin-bottom: 35px;
+}
+
+.entry-title {
+  margin: auto;
+  padding-bottom: 15px;
+}
+
+.notes-view {
+  margin: auto;
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+.image-view {
+  margin: 0;
+  margin-bottom: 15px;
+}
+
+.no-entries {
+  text-align: center;
 }

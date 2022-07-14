@@ -20,16 +20,18 @@
   </head>
   <body>
     <header class="header-container">
-      <div class="container">
-        <h2 class="header-text">Code Journal</h2>
+      <div class="row container" id="nav-bar">
+        <div><span class="header-text">Code Journal</span></div>
+        <div><h2 id="nav-entries" class="nav-text hidden">Entries</h2></div>
       </div>
     </header>
     <main>
       <div class="container">
-        <div>
-          <h1 class="main-header">New Entry</h1>
-        </div>
-        <div data-view="entry-form">
+
+        <div id="entry-form" data-view="entry-form" class="hidden">
+          <div>
+            <h1 class="main-header">New Entry</h1>
+          </div>
           <form class="entry-form-container" action="index.php" method="POST">            
             <div class="row top-form">
               <div class="entry-form-div column-half">  
@@ -51,9 +53,19 @@
               <div><textarea required autofocus name="entryNotes" id="entry-notes" placeholder="Notes" class="notes-area notes-area-height"></textarea></div>
             </div>
             <div class="entry-form-div">
-              <button type="submit" name="submit-entry" id="save-button" class="submit-entry-button">SAVE</button>
+              <button type="submit" name="submit-entry" id="save-button" class="entry-button">SAVE</button>
             </div>
           </form>
+        </div>
+        
+        <div id="view-form" data-view="entries" class="">
+          <div class="row view-header">
+            <div class="col-half"><h1 class="main-header">Entries</h1></div>
+            <div class="col-half"><button id="new-button" class="entry-button">NEW</button></div>
+          </div>
+          <ul id="entry-list" class="ul-no-list">
+            
+          </ul>
         </div>
       </div>
     </main>

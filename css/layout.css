@@ -42,3 +42,7 @@
     max-height: max-content;
   }
 }
+
+.col-half {
+  flex-basis: 50%;
+}
