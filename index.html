@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com"> 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="icon" href="images/favicon.ico">
     <link
       rel="stylesheet"
@@ -19,18 +20,22 @@
     <link rel="stylesheet" href="css/styles.css">
   </head>
   <body>
-    <header class="header-container">
-      <div class="container">
-        <h2 class="header-text">Code Journal</h2>
+    <main id="main-container">
+      <div class="modal-container hidden">
+        <div class="modal-div"></div>
       </div>
-    </header>
-    <main>
-      <div class="container">
-        <div>
-          <h1 class="main-header">New Entry</h1>
+      <header class="header-container">
+        <div class="row container" id="nav-bar">
+          <div><span class="header-text">Code Journal</span></div>
+          <div><h2 id="nav-entries" class="nav-text hidden">Entries</h2></div>
         </div>
-        <div data-view="entry-form">
-          <form class="entry-form-container" action="index.php" method="POST">            
+      </header>
+      <div class="container">
+        <div id="entry-form" data-view="entry-form" class="hidden">
+          <div>
+            <h1 class="main-header">New Entry</h1>
+          </div>
+          <form name="entryForm" class="entry-form-container" action="index.php" method="POST">            
             <div class="row top-form">
               <div class="entry-form-div column-half">  
                 <img src="images/placeholder-image-square.jpg" alt="Placeholder Image" class="entry-image" id="entry-image">
@@ -50,13 +55,32 @@
               <div><label for="entry-notes" class="label-text">Notes</label></div>
               <div><textarea required autofocus name="entryNotes" id="entry-notes" placeholder="Notes" class="notes-area notes-area-height"></textarea></div>
             </div>
-            <div class="entry-form-div">
-              <button type="submit" name="submit-entry" id="save-button" class="submit-entry-button">SAVE</button>
+            <div class="entry-form-div submit-div row">
+              <div class="col-half">
+                <span class="delete-text"></span>
+              </div>
+              <div class="col-half">
+                <button type="submit" name="submit-entry" id="save-button" class="entry-button">SAVE</button>
+              </div>
             </div>
           </form>
         </div>
+        
+        <div id="view-form" data-view="entries" class="">
+          <div class="row view-header">
+            <div class="col-half"><h1 class="main-header">Entries</h1></div>
+            <div class="col-half"><button id="new-button" class="entry-button">NEW</button></div>
+          </div>
+          <ul id="entry-list" class="ul-no-list">
+            
+          </ul>
+        </div>
       </div>
     </main>
+    <script
+    crossorigin="anonymous"
+    src="https://cdnjs.cloudflare.com/ajax/libs/uuid/8.3.1/uuid.min.js"
+    integrity="sha512-4JH7nC4nSqPixxbhZCLETJ+DUfHa+Ggk90LETm25fi/SitneSvtxkcWAUujvYrgKgvrvwv4NDAsFgdwCS79Dcw=="></script>
     <script src="js/data.js"></script>
     <script src="js/main.js"></script>
   </body>

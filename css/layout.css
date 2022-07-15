@@ -23,6 +23,14 @@
   max-height: max-content;
 }
 
+.modal-position {
+  position: absolute;
+  margin: auto;
+  right: 0;
+  left: 0;
+  top: 350px;
+}
+
 @media screen and (min-width: 768px) {
   .container {
     max-width: 900px;
@@ -41,4 +49,20 @@
     min-height: 120px;
     max-height: max-content;
   }
+
+  .modal-position {
+    top: 300px;
+  }
+}
+
+.col-half {
+  flex-basis: 50%;
+}
+
+.col-80 {
+  flex-basis: 80%;
+}
+
+.col-20 {
+  flex-basis: 20%;
 }

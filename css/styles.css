@@ -49,8 +49,18 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.col-half {
-  flex-basis: 50%;
+.nav-text {
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 2.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin-left: 25px;
+}
+
+.nav-text:hover {
+  color: rgb(168, 134, 174);
+  cursor: pointer;
 }
 
 .entry-image {
@@ -59,6 +69,7 @@ body {
   margin: 0 auto;
   padding: 0;
   border: 0;
+  border-radius: 5px;
   background: #fff;
   font-size: 14px;
   color: #333;
@@ -81,15 +92,17 @@ body {
   padding-left: 0.5rem;
   width: 100%;
   line-height: 1.5rem;
+  border-radius: 3px;
 }
 
 .notes-area {
   font-size: 1rem;
   padding-left: 0.5rem;
   width: 100%;
+  border-radius: 5px;
 }
 
-.submit-entry-button {
+.entry-button {
   font-family: Lato, sans-serif;
   font-weight: 600;
   font-size: 1.3rem;
@@ -103,7 +116,144 @@ body {
   background: rgb(88, 6, 135);
 }
 
+.entry-button:hover {
+  background: rgb(146, 43, 180);
+  cursor: pointer;
+}
+
 .label-text {
   font-weight: 900;
   font-size: 1.5rem;
+}
+
+.ul-no-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.view-header {
+  justify-content: center;
+  align-items: center;
+}
+
+.entry-container {
+  min-width: 100%;
+  width: 100%;
+  margin-bottom: 35px;
+}
+
+.entry-title {
+  margin: auto;
+  padding-bottom: 15px;
+}
+
+.notes-view {
+  margin: auto;
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+/*
+.image-view {
+  margin: 0;
+  margin-bottom: 15px;
+}
+*/
+.no-entries {
+  text-align: center;
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+    "FILL" 0,
+    "wght" 400,
+    "GRAD" 0,
+    "opsz" 48;
+  float: right;
+}
+
+.material-symbols-outlined:hover {
+  color: rgb(168, 134, 174);
+  cursor: pointer;
+}
+
+.modal-container {
+  background-color: rgb(0 0 0 / 74.4%);
+  display: flex;
+}
+
+.delete-text {
+  font-size: 1.2rem;
+  font-weight: 900;
+  line-height: 2.5;
+  text-decoration: underline;
+  color: red;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.delete-text:hover {
+  color: rgb(168, 134, 174);
+  cursor: pointer;
+}
+
+.size-out {
+  position: absolute;
+  background-color: rgb(0 0 0 / 73.3%);
+  width: 100%;
+  height: 100%;
+}
+
+.modal-size {
+  border: 0;
+  width: 450px;
+  height: 150px;
+  border-radius: 5px;
+  border-style: hidden;
+  justify-content: space-around;
+  align-items: center;
+  background-color: rgb(239, 239, 239);
+  box-shadow: 0 0 10px 10px rgb(0 0 0 / 50%);
+}
+
+.modal-text-div {
+  flex-basis: 50%;
+  margin: auto;
+  padding-top: 10px;
+  padding-bottom: 30px;
+}
+
+.modal-text {
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+  color: rgb(42 41 41);
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.modal-button-div {
+  flex-basis: 50%;
+  margin: auto;
+  padding-left: 5%;
+  padding-right: 5%;
+  padding-bottom: 30px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.cancel-button {
+  background-color: rgb(212, 209, 209);
+  color: rgb(14, 14, 14);
+  border-radius: 5px;
+  padding: 5px 20px;
+  font-size: 1.2rem;
+  float: left;
+}
+
+.confirm-button {
+  background-color: red;
+  color: white;
+  border-radius: 5px;
+  padding: 5px 20px;
+  font-size: 1.2rem;
+  float: right;
 }
