@@ -61,6 +61,8 @@ $entryForm.addEventListener('submit', function (e) {
         data.editing = null;
         $entryImage.src = 'images/placeholder-image-square.jpg';
         $entryForm.reset();
+        $entryFormContainer.classList.add('hidden');
+        $viewFormContainer.classList.remove('hidden');
         break;
       }
     }
