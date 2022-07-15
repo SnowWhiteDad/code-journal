@@ -47,6 +47,8 @@ $entryForm.addEventListener('submit', function (e) {
     data.nextEntryId++;
     $entryImage.src = 'images/placeholder-image-square.jpg';
     $entryForm.reset();
+    $entryFormContainer.classList.add('hidden');
+    $viewFormContainer.classList.remove('hidden');
   } else if ($entryFormContainer.getElementsByClassName('main-header')[0].innerText === 'Edit Entry') {
     data.editing.title = $entryForm.elements.entryTitle.value;
     data.editing.photoUrl = $entryForm.elements.photoUrl.value;
