@@ -66,3 +66,15 @@
 .col-20 {
   flex-basis: 20%;
 }
+
+.col-half {
+  flex-basis: 50%;
+}
+
+.col-80 {
+  flex-basis: 80%;
+}
+
+.col-20 {
+  flex-basis: 20%;
+}
