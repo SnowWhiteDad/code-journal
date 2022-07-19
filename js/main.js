@@ -241,7 +241,6 @@ function confirmClick() {
   $viewFormContainer.classList.remove('hidden');
 }
 
-
 /*
   <li data-entry-id="0fef1c67-00d4-42f5-89a8-8e76e8c0e312">
     <div class="row entry-container">
@@ -269,7 +268,6 @@ function confirmClick() {
     </div>
   </li>
 */
-
 
 // 1. add delete button to edit entry view = DONE!
 // 2. add event listener to delete button
