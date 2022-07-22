@@ -11,21 +11,37 @@ var $navEntries = $navBar.getElementsByClassName('nav-text')[0];
 var $deteteLink = $entryForm.querySelector('.delete-text');
 var $modalContainer = $mainContainer.querySelector('.modal-container');
 var $modalDiv = $modalContainer.querySelector('.modal-div');
+var $searchBox = $navBar.querySelector('.search-box');
+
+$searchBox.addEventListener('input', function (event) {
+  if (event.target.value !== '') {
+    var $searchResults = $entryList.querySelectorAll('li');
+    for (var i = 0; i < $searchResults.length; i++) {
+      if ($searchResults[i].innerText.toLowerCase().indexOf(event.target.value.toLowerCase()) === -1) {
+        $searchResults[i].classList.add('hidden');
+      } else {
+        $searchResults[i].classList.remove('hidden');
+      }
+    }
+  } else {
+    $searchResults = $entryList.querySelectorAll('li');
+    for (i = 0; i < $searchResults.length; i++) {
+      $searchResults[i].classList.remove('hidden');
+    }
+  }
+});
 
 // event listener for DOMContentLoaded and rendering of entries
 document.addEventListener('DOMContentLoaded', function () {
   if (data.editing === null) {
     if (data.view === 'view-form') {
-      $entryFormContainer.classList.add('hidden');
-      $viewFormContainer.classList.remove('hidden');
+      viewViewForm();
     } else if (data.view === 'entry-form') {
-      $viewFormContainer.classList.add('hidden');
-      $entryFormContainer.classList.remove('hidden');
+      viewEntryForm();
     }
   } else if (data.editing !== null) {
     $entryFormContainer.getElementsByClassName('main-header')[0].innerText = 'Edit Entry';
-    $entryFormContainer.classList.remove('hidden');
-    $viewFormContainer.classList.add('hidden');
+    viewEntryForm();
     $entryForm.elements.entryTitle.value = data.editing.title;
     $entryForm.elements.entryNotes.value = data.editing.notesText;
     $entryForm.elements.photoUrl.value = data.editing.photoUrl;
@@ -42,6 +58,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   } else {
     $entryList.innerHTML = '<p class="no-entries">No entries have been recorded.</p>';
+    $searchBox.classList.add('hidden');
   }
 });
 
@@ -72,8 +89,7 @@ $entryForm.addEventListener('submit', function (e) {
     data.nextEntryId++;
     $entryImage.src = 'images/placeholder-image-square.jpg';
     $entryForm.reset();
-    $entryFormContainer.classList.add('hidden');
-    $viewFormContainer.classList.remove('hidden');
+    viewViewForm();
   } else if ($entryFormContainer.getElementsByClassName('main-header')[0].innerText === 'Edit Entry') {
     data.editing.title = $entryForm.elements.entryTitle.value;
     data.editing.photoUrl = $entryForm.elements.photoUrl.value;
@@ -88,8 +104,7 @@ $entryForm.addEventListener('submit', function (e) {
       data.editing = null;
       $entryImage.src = 'images/placeholder-image-square.jpg';
       $entryForm.reset();
-      $entryFormContainer.classList.add('hidden');
-      $viewFormContainer.classList.remove('hidden');
+      viewViewForm();
     }
   }
   if (data.editing !== null) {
@@ -109,8 +124,7 @@ $newButton.addEventListener('click', function (e) {
     $entryForm.reset();
     $entryImage.src = 'images/placeholder-image-square.jpg';
   }
-  $entryFormContainer.classList.remove('hidden');
-  $viewFormContainer.classList.add('hidden');
+  viewEntryForm();
   if (data.editing !== null) {
     data.editing = null;
   }
@@ -120,8 +134,7 @@ $newButton.addEventListener('click', function (e) {
 // event listener for Entries text on the nav bar
 $navBar.addEventListener('click', function (event) {
   if (event.target.matches('h2.nav-text')) {
-    $entryFormContainer.classList.add('hidden');
-    $viewFormContainer.classList.remove('hidden');
+    viewViewForm();
     if (data.editing !== null) {
       data.editing = null;
     }
@@ -142,8 +155,7 @@ $entryList.addEventListener('click', function (event) {
       notesText: $renderedEntry.getElementsByClassName('notes-view')[0].innerText
     };
     $deteteLink.innerText = 'Delete Entry';
-    $entryFormContainer.classList.remove('hidden');
-    $viewFormContainer.classList.add('hidden');
+    viewEntryForm();
     $entryFormContainer.getElementsByClassName('main-header')[0].innerText = 'Edit Entry';
     for (var i = 0; i < data.entries.length; i++) {
       if (data.entries[i].dataEntryId === $entry.dataEntryId) {
@@ -267,9 +279,20 @@ function confirmClick() {
   while ($modalDiv.firstChild) {
     $modalDiv.removeChild($modalDiv.firstChild);
   }
+  viewViewForm();
+  data.view = 'view-form';
+}
+
+function viewEntryForm(event) {
+  $entryFormContainer.classList.remove('hidden');
+  $viewFormContainer.classList.add('hidden');
+  $searchBox.classList.add('hidden');
+}
+
+function viewViewForm(event) {
   $entryFormContainer.classList.add('hidden');
   $viewFormContainer.classList.remove('hidden');
-  data.view = 'view-form';
+  $searchBox.classList.remove('hidden');
 }
 
 /*
