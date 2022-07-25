@@ -51,6 +51,8 @@ document.addEventListener('DOMContentLoaded', function () {
   }
   if (data.nextEntryId > 1) {
     $navEntries.classList.remove('hidden');
+    $searchBox.classList.remove('hidden');
+    $navSort.classList.remove('hidden');
     $entryList.innerHTML = '';
     for (var i = data.entries.length - 1; i >= 0; i--) {
       var $entry = renderEntry(data.entries[i]);
@@ -83,11 +85,12 @@ $entryForm.addEventListener('submit', function (e) {
       photoUrl: $entryForm.elements.photoUrl.value,
       notesText: $entryForm.elements.entryNotes.value
     };
-    data.entries.unshift(newData);
     if (data.nextEntryId === 1) {
       $entryList.innerHTML = '';
     }
     $entryList.prepend(renderEntry(newData));
+    newData.dataEntryId = $entryList.firstChild.getAttribute('data-entry-id');
+    data.entries.unshift(newData);
     data.nextEntryId++;
     $entryImage.src = 'images/placeholder-image-square.jpg';
     $entryForm.reset();
@@ -114,6 +117,8 @@ $entryForm.addEventListener('submit', function (e) {
   }
   if (data.nextEntryId > 1) {
     $navEntries.classList.remove('hidden');
+    $searchBox.classList.remove('hidden');
+    $navSort.classList.remove('hidden');
   }
   data.view = 'view-form';
 });
@@ -141,9 +146,12 @@ $navBar.addEventListener('click', function (event) {
       data.editing = null;
     }
     data.view = 'view-form';
+    $entryImage.src = 'images/placeholder-image-square.jpg';
+    $entryForm.reset();
   }
-  $entryImage.src = 'images/placeholder-image-square.jpg';
-  $entryForm.reset();
+  if (event.target.matches('h2.sort-text')) {
+    console.log('sort');
+  }
 });
 
 // event listener for edit entry button
@@ -157,13 +165,11 @@ $entryList.addEventListener('click', function (event) {
       notesText: $renderedEntry.getElementsByClassName('notes-view')[0].innerText
     };
     $deteteLink.innerText = 'Delete Entry';
-    viewEntryForm();
     $entryFormContainer.getElementsByClassName('main-header')[0].innerText = 'Edit Entry';
+    viewEntryForm();
     for (var i = 0; i < data.entries.length; i++) {
       if (data.entries[i].dataEntryId === $entry.dataEntryId) {
-        console.log(data.entries[i]);
         data.editing = data.entries[i];
-        console.log(data.editing);
         data.editing.arrayIndex = i;
         break;
       }
@@ -264,14 +270,16 @@ function cancelClick() {
 // function to handle the confirm button click
 function confirmClick() {
   var $thisnum = data.editing.arrayIndex;
-  if (data.entries[$thisnum].dataEntryId === data.editing.dataEntryId) {
+  if (data.entries[$thisnum].entryId === data.editing.entryId) {
     data.entries.splice($thisnum, 1); // done to remove the entry from the array
-    var $entry = $entryList.querySelector('[data-entry-id="' + data.editing.dataEntryId + '"]');
+    var $entry = $entryList.querySelector('[data-entry-id="' + data.editing.entryId + '"]');
     $entry.parentNode.removeChild($entry); // done to remove from the DOM
     data.editing = null;
   }
   if (data.entries.length === 0) {
     $navEntries.classList.add('hidden');
+    $searchBox.classList.add('hidden');
+    $navSort.classList.add('hidden');
     $entryList.innerHTML = '<p class="no-entries">No entries have been recorded.</p>';
   }
   for (var i = data.entries.length; i > 0; i--) {
@@ -291,6 +299,7 @@ function viewEntryForm(event) {
   $entryFormContainer.classList.remove('hidden');
   $viewFormContainer.classList.add('hidden');
   $searchBox.classList.add('hidden');
+  $navSort.classList.add('hidden');
 }
 
 function viewViewForm(event) {
