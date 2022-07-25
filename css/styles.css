@@ -265,3 +265,17 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+.sort-text {
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 2.5;
+  margin-left: 50px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.sort-text:hover {
+  color: rgb(168, 134, 174);
+  cursor: pointer;
+}

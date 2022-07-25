@@ -12,6 +12,7 @@ var $deteteLink = $entryForm.querySelector('.delete-text');
 var $modalContainer = $mainContainer.querySelector('.modal-container');
 var $modalDiv = $modalContainer.querySelector('.modal-div');
 var $searchBox = $navBar.querySelector('.search-box');
+var $navSort = $navBar.querySelector('.sort-text');
 
 $searchBox.addEventListener('input', function (event) {
   if (event.target.value !== '') {
@@ -59,6 +60,7 @@ document.addEventListener('DOMContentLoaded', function () {
   } else {
     $entryList.innerHTML = '<p class="no-entries">No entries have been recorded.</p>';
     $searchBox.classList.add('hidden');
+    $navSort.classList.add('hidden');
   }
 });
 
@@ -159,7 +161,9 @@ $entryList.addEventListener('click', function (event) {
     $entryFormContainer.getElementsByClassName('main-header')[0].innerText = 'Edit Entry';
     for (var i = 0; i < data.entries.length; i++) {
       if (data.entries[i].dataEntryId === $entry.dataEntryId) {
+        console.log(data.entries[i]);
         data.editing = data.entries[i];
+        console.log(data.editing);
         data.editing.arrayIndex = i;
         break;
       }
@@ -293,6 +297,7 @@ function viewViewForm(event) {
   $entryFormContainer.classList.add('hidden');
   $viewFormContainer.classList.remove('hidden');
   $searchBox.classList.remove('hidden');
+  $navSort.classList.remove('hidden');
 }
 
 /*
