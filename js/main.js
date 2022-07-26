@@ -37,6 +37,13 @@ document.addEventListener('DOMContentLoaded', function () {
   if (data.editing === null) {
     if (data.view === 'view-form') {
       viewViewForm();
+      if (data.sort === 'date') {
+        $navSort.innerText = 'Reset Sort';
+        $newButton.classList.add('hidden');
+      } else if (data.sort === 'none') {
+        $navSort.innerText = 'Sort by Date';
+        $newButton.classList.remove('hidden');
+      }
     } else if (data.view === 'entry-form') {
       viewEntryForm();
     }
@@ -49,17 +56,10 @@ document.addEventListener('DOMContentLoaded', function () {
     $deteteLink.innerText = 'Delete Entry';
     $entryImage.src = data.editing.photoUrl;
   }
-  if (data.sort === 'date') {
-    $navSort.innerText = 'Reset Sort';
-    $newButton.classList.add('hidden');
-  } else if (data.sort === 'none') {
-    $navSort.innerText = 'Sort by Date';
-    $newButton.classList.remove('hidden');
-  }
   if (data.nextEntryId > 1) {
     $navEntries.classList.remove('hidden');
-    $searchBox.classList.remove('hidden');
-    $navSort.classList.remove('hidden');
+    // $searchBox.classList.remove('hidden');
+    // $navSort.classList.remove('hidden');
     $entryList.innerHTML = '';
     for (var i = data.entries.length - 1; i >= 0; i--) {
       var $entry = renderEntry(data.entries[i]);
