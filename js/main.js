@@ -51,8 +51,10 @@ document.addEventListener('DOMContentLoaded', function () {
   }
   if (data.sort === 'date') {
     $navSort.innerText = 'Reset Sort';
+    $newButton.classList.add('hidden');
   } else if (data.sort === 'none') {
     $navSort.innerText = 'Sort by Date';
+    $newButton.classList.remove('hidden');
   }
   if (data.nextEntryId > 1) {
     $navEntries.classList.remove('hidden');
@@ -165,6 +167,8 @@ $navBar.addEventListener('click', function (event) {
         $entryList.prepend($entry);
       }
       event.target.innerText = 'Reset Sort';
+      $newButton.classList.add('hidden');
+
     } else if (event.target.innerText === 'Reset Sort') {
       data.sort = 'none';
       data.entries.sort((a, b) => b.entryId - a.entryId);
@@ -175,6 +179,7 @@ $navBar.addEventListener('click', function (event) {
         $entryList.prepend($entry);
       }
       event.target.innerText = 'Sort by Date';
+      $newButton.classList.remove('hidden');
     }
   }
 });
