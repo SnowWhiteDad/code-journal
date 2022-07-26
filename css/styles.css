@@ -152,6 +152,13 @@ body {
   margin: auto;
   font-size: 1rem;
   line-height: 1.5rem;
+  word-wrap: break-word;
+  height: 70%;
+}
+
+.notes-view-space {
+  margin: auto;
+  padding-bottom: 15px;
 }
 
 .no-entries {
@@ -253,11 +260,25 @@ body {
   float: right;
 }
 
+.tag-div {
+  text-decoration: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.date-tag {
+  color: rgb(159, 45, 221);
+  border: rgb(159, 45, 221) solid 1px;
+  border-radius: 5px;
+  padding: 3px;
+  float: right;
+}
+
 .search-box {
   position: relative;
   top: 15px;
-  width: 100%;
-  margin-left: 30px;
+  width: 70%;
+  margin-left: 5%;
   border-radius: 5px;
   border: 0;
   font-size: 1rem;
@@ -267,15 +288,23 @@ body {
 }
 
 .sort-text {
+  position: relative;
+  right: 30px;
   font-size: 1rem;
   font-weight: 500;
   line-height: 2.5;
-  margin-left: 50px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: yellow;
 }
 
 .sort-text:hover {
   color: rgb(168, 134, 174);
   cursor: pointer;
+}
+
+.list-height {
+  height: 100%;
+  border-bottom: rgb(155, 153, 153) solid 0.5px;
+  margin-bottom: 10px;
 }

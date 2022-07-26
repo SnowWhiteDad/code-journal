@@ -13,6 +13,11 @@
   flex-wrap: wrap;
 }
 
+.col {
+  display: flex;
+  flex-direction: column;
+}
+
 .column-full,
 .column-half {
   flex-basis: 100%;
@@ -29,6 +34,11 @@
   right: 0;
   left: 0;
   top: 400px;
+}
+
+.tag-pos {
+  position: relative;
+  bottom: 20px;
 }
 
 @media screen and (min-width: 768px) {
@@ -53,18 +63,11 @@
   .modal-position {
     top: 300px;
   }
-}
 
-.col-half {
-  flex-basis: 50%;
-}
-
-.col-80 {
-  flex-basis: 80%;
-}
-
-.col-20 {
-  flex-basis: 20%;
+  .tag-pos {
+    position: relative;
+    bottom: 0;
+  }
 }
 
 .col-half {
