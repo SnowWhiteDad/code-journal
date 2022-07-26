@@ -49,6 +49,11 @@ document.addEventListener('DOMContentLoaded', function () {
     $deteteLink.innerText = 'Delete Entry';
     $entryImage.src = data.editing.photoUrl;
   }
+  if (data.sort === 'date') {
+    $navSort.innerText = 'Reset Sort';
+  } else if (data.sort === 'none') {
+    $navSort.innerText = 'Sort by Date';
+  }
   if (data.nextEntryId > 1) {
     $navEntries.classList.remove('hidden');
     $searchBox.classList.remove('hidden');
@@ -150,7 +155,27 @@ $navBar.addEventListener('click', function (event) {
     $entryForm.reset();
   }
   if (event.target.matches('h2.sort-text')) {
-    console.log('sort');
+    if (event.target.innerText === 'Sort by Date') {
+      data.sort = 'date';
+      data.entries.sort((a, b) => a.entryDate - b.entryDate);
+      $entryList.innerHTML = '';
+      for (var i = data.entries.length - 1; i >= 0; i--) {
+        var $entry = renderEntry(data.entries[i]);
+        data.entries[i].dataEntryId = $entry.getAttribute('data-entry-id');
+        $entryList.prepend($entry);
+      }
+      event.target.innerText = 'Reset Sort';
+    } else if (event.target.innerText === 'Reset Sort') {
+      data.sort = 'none';
+      data.entries.sort((a, b) => b.entryId - a.entryId);
+      $entryList.innerHTML = '';
+      for (i = data.entries.length - 1; i >= 0; i--) {
+        $entry = renderEntry(data.entries[i]);
+        data.entries[i].dataEntryId = $entry.getAttribute('data-entry-id');
+        $entryList.prepend($entry);
+      }
+      event.target.innerText = 'Sort by Date';
+    }
   }
 });
 
@@ -186,7 +211,14 @@ $entryList.addEventListener('click', function (event) {
 function renderEntry(entry) {
   var $entry = document.createElement('li');
   // entry.dataEntryId = uuid.v4();
+  if (entry.entryDate === undefined) {
+    entry.entryDate = new Date();
+  } else {
+    entry.entryDate = new Date(entry.entryDate);
+  }
+  $entry.setAttribute('data-entry-date', entry.entryDate);
   $entry.setAttribute('data-entry-id', entry.entryId);
+  $entry.classList.add('list-height');
   var $entryContainer = document.createElement('div');
   var $imageDiv = document.createElement('div');
   var $textDiv = document.createElement('div');
@@ -197,7 +229,11 @@ function renderEntry(entry) {
   var $editDiv = document.createElement('div');
   var $entryEdit = document.createElement('span');
   var $entryNotes = document.createElement('p');
+  var $tagDiv = document.createElement('div');
+  var $entryDate = document.createElement('p');
+  var $dateSpan = document.createElement('span');
   $entryImage.src = entry.photoUrl;
+  $entryDate.classList.add('date-view');
   $entryImage.classList.add('entry-image');
   $entryImage.classList.add('image-view');
   $imageDiv.classList.add('column-half');
@@ -213,13 +249,19 @@ function renderEntry(entry) {
   $entryNotes.innerText = entry.notesText;
   $entryContainer.classList.add('row');
   $entryContainer.classList.add('entry-container');
+  $dateSpan.classList.add('date-tag', 'tag-pos');
   $imageDiv.appendChild($entryImage);
   $titleDiv.appendChild($entryTitle);
   $editDiv.appendChild($entryEdit);
   $entryTitleDiv.appendChild($titleDiv);
   $entryTitleDiv.appendChild($editDiv);
+  $tagDiv.classList.add('notes-view');
+  $dateSpan.innerHTML = '<span style="color: black; font-weight: 900; font-style: italic;">Created: </span>' + entry.entryDate.toLocaleDateString();
+  $entryDate.appendChild($dateSpan);
+  $tagDiv.appendChild($entryDate);
   $textDiv.appendChild($entryTitleDiv);
   $textDiv.appendChild($entryNotes);
+  $textDiv.appendChild($tagDiv);
   $entryContainer.appendChild($imageDiv);
   $entryContainer.appendChild($textDiv);
   $entry.appendChild($entryContainer);
@@ -332,6 +374,13 @@ function viewViewForm(event) {
           <br><br>
           Test only!
         </p>
+          <div class="date-tag">
+            <p class="data-entry-date">
+              <span class="data-entry-date-month">Nov</span>
+              <span class="data-entry-date-day">17</span>
+              <span class="data-entry-date-year">2018</span>
+            </p>
+          </div>
       </div>
     </div>
   </li>
