@@ -170,9 +170,9 @@ $navBar.addEventListener('click', function (event) {
       data.entries.sort((a, b) => b.entryId - a.entryId);
       $entryList.innerHTML = '';
       for (i = data.entries.length - 1; i >= 0; i--) {
-        var entry = renderEntry(data.entries[i]);
+        $entry = renderEntry(data.entries[i]);
         data.entries[i].dataEntryId = $entry.getAttribute('data-entry-id');
-        $entryList.prepend(entry);
+        $entryList.prepend($entry);
       }
       event.target.innerText = 'Sort by Date';
     }
