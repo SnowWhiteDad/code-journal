@@ -58,8 +58,6 @@ document.addEventListener('DOMContentLoaded', function () {
   }
   if (data.nextEntryId > 1) {
     $navEntries.classList.remove('hidden');
-    // $searchBox.classList.remove('hidden');
-    // $navSort.classList.remove('hidden');
     $entryList.innerHTML = '';
     for (var i = data.entries.length - 1; i >= 0; i--) {
       var $entry = renderEntry(data.entries[i]);
@@ -92,6 +90,9 @@ $entryForm.addEventListener('submit', function (e) {
       photoUrl: $entryForm.elements.photoUrl.value,
       notesText: $entryForm.elements.entryNotes.value
     };
+    if ($entryForm.elements.tagInput.value !== '') {
+      newData.tags = $entryForm.elements.tagInput.value.split(',');
+    }
     if (data.nextEntryId === 1) {
       $entryList.innerHTML = '';
     }
@@ -106,6 +107,14 @@ $entryForm.addEventListener('submit', function (e) {
     data.editing.title = $entryForm.elements.entryTitle.value;
     data.editing.photoUrl = $entryForm.elements.photoUrl.value;
     data.editing.notesText = $entryForm.elements.entryNotes.value;
+    if ($entryForm.elements.tagInput.value !== '') {
+      if (data.editing.tags === undefined) {
+        data.editing.tags = $entryForm.elements.tagInput.value.split(',');
+      } else {
+        var newTags = $entryForm.elements.tagInput.value.split(',');
+        data.editing.tags = data.editing.tags.concat(newTags);
+      }
+    }
     const $thisnum = data.editing.arrayIndex;
     if (data.entries[$thisnum].entryId === data.editing.entryId) {
       data.entries[$thisnum] = data.editing;
@@ -113,6 +122,12 @@ $entryForm.addEventListener('submit', function (e) {
       $entry.querySelector('.entry-title').innerText = data.editing.title;
       $entry.querySelector('.entry-image').src = data.editing.photoUrl;
       $entry.querySelector('.notes-view').innerText = data.editing.notesText;
+      $entry.querySelector('.word-tags').innerText = '';
+      for (var i = 0; i < data.editing.tags.length; i++) {
+        var $entryTags = document.createElement('span');
+        $entryTags.innerHTML = '<span class="material-icons">cancel</span><span class="tag-span">' + data.editing.tags[i] + '</span>';
+        $entry.querySelector('.word-tags').prepend($entryTags);
+      }
       data.editing = null;
       $entryImage.src = 'images/placeholder-image-square.jpg';
       $entryForm.reset();
@@ -210,6 +225,41 @@ $entryList.addEventListener('click', function (event) {
     $entryImage.src = $entry.photoUrl;
     data.view = 'entry-form';
   }
+  if (event.target.matches('span.material-icons')) {
+    var $spanParent = event.target.parentElement;
+    $renderedEntry = event.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
+    for (i = 0; i < data.entries[data.entries.length - Number($renderedEntry.getAttribute('data-entry-id'))].tags.length; i++) {
+      if ($spanParent.querySelector('.tag-span').innerText === data.entries[data.entries.length - Number($renderedEntry.getAttribute('data-entry-id'))].tags[i]) {
+        data.entries[data.entries.length - Number($renderedEntry.getAttribute('data-entry-id'))].tags.splice(i, 1); // done to remove the entry from the array
+        $spanParent.parentNode.removeChild($spanParent);
+        break;
+      }
+    }
+  }
+  if (event.target.matches('span.tag-span')) {
+    $spanParent = event.target.parentElement;
+    $renderedEntry = event.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
+    var $thisEntryArrayIndex = data.entries.length - Number($renderedEntry.getAttribute('data-entry-id'));
+  }
+  if (event.target.matches('button.tag-button')) {
+    var $inputParent = event.target.parentElement.parentElement.parentElement;
+    if ($inputParent.querySelector('.tag-input').value !== '') {
+      var $tagText = $inputParent.querySelector('.tag-input').value;
+      var $entryTags = document.createElement('span');
+      $entryTags.innerHTML = '<span class="material-icons">cancel</span><span class="tag-span">' + $tagText + '</span>';
+      var $thisWordTag = $inputParent.querySelector('.word-tags');
+      $thisWordTag.prepend($entryTags);
+      $renderedEntry = event.target.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement;
+      $thisEntryArrayIndex = data.entries.length - Number($renderedEntry.getAttribute('data-entry-id'));
+      if (data.entries[$thisEntryArrayIndex].tags === undefined) {
+        data.entries[$thisEntryArrayIndex].tags = [];
+        data.entries[$thisEntryArrayIndex].tags.push($tagText);
+      } else {
+        data.entries[$thisEntryArrayIndex].tags.push($tagText);
+      }
+      event.target.parentElement.querySelector('.tag-input').value = '';
+    }
+  }
 });
 
 // function to build an li entry
@@ -233,10 +283,40 @@ function renderEntry(entry) {
   var $entryTitle = document.createElement('h3');
   var $editDiv = document.createElement('div');
   var $entryEdit = document.createElement('span');
-  var $entryNotes = document.createElement('p');
+  var $entryNotes = document.createElement('div');
   var $tagDiv = document.createElement('div');
+  var $topDiv = document.createElement('div');
+  var $tagInputDiv = document.createElement('div');
+  var $tagInput = document.createElement('input');
+  var $tagButton = document.createElement('button');
+  var $entryTagDiv = document.createElement('div');
+  var $dateTagDiv = document.createElement('div');
+  var $entryTags = document.createElement('span');
   var $entryDate = document.createElement('p');
   var $dateSpan = document.createElement('span');
+  $tagDiv.classList.add('tag-div', 'col');
+  $tagDiv.appendChild($topDiv);
+  $tagDiv.appendChild($entryTagDiv);
+  $topDiv.classList.add('row', 'tag-top-div');
+  $topDiv.appendChild($tagInputDiv);
+  $topDiv.appendChild($dateTagDiv);
+  $dateTagDiv.appendChild($entryDate);
+  $dateTagDiv.classList.add('col-half');
+  $tagInputDiv.classList.add('row', 'col-half');
+  $tagInputDiv.appendChild($tagInput);
+  $tagInputDiv.appendChild($tagButton);
+  $tagInput.classList.add('tag-input');
+  $tagInput.setAttribute('placeholder', 'Add a tag');
+  $tagButton.classList.add('tag-button');
+  $tagButton.innerText = 'Add';
+  $entryTagDiv.classList.add('word-tags');
+  if (entry.tags !== undefined) {
+    for (var i = 0; i < entry.tags.length; i++) {
+      $entryTags = document.createElement('span');
+      $entryTags.innerHTML = '<span class="material-icons">cancel</span><span class="tag-span">' + entry.tags[i] + '</span>';
+      $entryTagDiv.prepend($entryTags);
+    }
+  }
   $entryImage.src = entry.photoUrl;
   $entryDate.classList.add('date-view');
   $entryImage.classList.add('entry-image');
@@ -260,10 +340,8 @@ function renderEntry(entry) {
   $editDiv.appendChild($entryEdit);
   $entryTitleDiv.appendChild($titleDiv);
   $entryTitleDiv.appendChild($editDiv);
-  $tagDiv.classList.add('notes-view');
   $dateSpan.innerHTML = '<span style="color: black; font-weight: 900; font-style: italic;">Created: </span>' + entry.entryDate.toLocaleDateString();
   $entryDate.appendChild($dateSpan);
-  $tagDiv.appendChild($entryDate);
   $textDiv.appendChild($entryTitleDiv);
   $textDiv.appendChild($entryNotes);
   $textDiv.appendChild($tagDiv);
